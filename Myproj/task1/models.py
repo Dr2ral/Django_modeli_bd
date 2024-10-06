@@ -4,8 +4,8 @@ from django.db import models
 # Create your models here.
 class Buyer(models.Model):
     name = models.CharField(max_length=50)
-    balance = models.DecimalField(('Balance'), decimal_places=1, max_digits=4, blank=False, null=True)
-    age = models.CharField(max_length=3)
+    balance = models.DecimalField(decimal_places=4, max_digits=4, null=True)
+    age = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -13,13 +13,11 @@ class Buyer(models.Model):
 
 class Game(models.Model):
     title = models.CharField(max_length=30)
-    cost = models.DecimalField(('Cost'), decimal_places=1, max_digits=4, blank=False, null=True)
-    size = models.DecimalField(('Size'), decimal_places=1, max_digits=4, blank=False, null=True)
+    cost = models.DecimalField(decimal_places=4, max_digits=5, blank=False)
+    size = models.DecimalField(decimal_places=4, max_digits=4, blank=False)
     description = models.TextField()
     age_limited = models.BooleanField(default=False)
-    buyer = models.ManyToManyField(Buyer, through='Game_Buyer')
+    buyer = models.ManyToManyField(Buyer, related_name='game')
 
-
-class Game_Buyer(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='game')
-    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, related_name='buyer')
+    def __str__(self):
+        return self.title
