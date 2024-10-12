@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Игры</title>
+</head>
+<body>
+{% block pagename %}
+<h1>Игры</h1>
+{%endblock%}
+
+{%block menu%}
+{%include 'menu.html'%}
+{%endblock%}
+
+{%block content%}
+<ul>
+    {% for i in games %}
+    <li>{{i.title}} | {{i.description}}. Стоимость: {{i.cost}} <button>Купить</button></li>
+    {% endfor %}
+</ul>
+{%endblock%}
+
+</body>
+</html>
